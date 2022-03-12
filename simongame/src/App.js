@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ClickButton from './ClickButton/ClickButton'
 import RestartButton from './RestartButton/RestartButton'
 import './styles/global.css'
+import Switch from './Switch/Switch'
 
 const App = () => {
   // Es wird viel zu viel am Anfang ausgeführt! Muss wahrscheinlich in die UseEffects Bedingungen reinmachen..
@@ -13,7 +14,9 @@ const App = () => {
   const [userTurn, setUserTurn] = useState(100)
   const [continuousCount, setContinuousCount] = useState(0)
   const [goalSequence, setGoalSequence] = useState("")
+  const [strict, setStrict] = useState(false)
 
+  let numbers = ["", "one", "two", "three", "four"]
   // This is used to get a random sequence at the beginning of the Game
   let sequence = ""
   for(let i = 0; i < 20; i++) {
@@ -39,12 +42,12 @@ const App = () => {
   }
   
   function pressButton() {
-    document.getElementById(String(goalSequence[userTurn])).classList.add("clicked")
+    document.getElementById(numbers[goalSequence[userTurn]]).classList.add("clicked")
     setTimeout(depressButton, 500) 
   }
 
   function depressButton() {
-    document.getElementById(String(goalSequence[userTurn])).classList.remove("clicked")
+    document.getElementById(numbers[goalSequence[userTurn]]).classList.remove("clicked")
     setTimeout(function() { // This setup lets me implement a small timeout to make the game feel more natural
       if (userTurn < currentSequence.length - 1) {
         setUserTurn(userTurn + 1)
@@ -75,9 +78,20 @@ const App = () => {
     for (let i = 0; i < inputSequence.length; i++) {
       if (inputSequence[i] === currentSequence[i]) {
         } else {
-        setInputSequence([])
-        setCurrentSequence([])
-        setCount(1)
+          if (strict) {
+            document.getElementById("information").textContent = "Wrong and the Game was strikt. Restart!"
+            setInputSequence([])
+            setCurrentSequence([])
+            setCount(1)
+            setUserTurn(0)
+          } else {
+            document.getElementById("information").textContent = "Wrong! Try Again!"
+            setInputSequence([])
+            setUserTurn(0)
+            setContinuousCount(continuousCount + 1)
+            
+          }
+        
       }
     }
   } 
@@ -87,15 +101,20 @@ const App = () => {
     <div>
       <div id="information">{userInformation}</div>
       <RestartButton currentSequence={currentSequence} setCurrentSequence={setCurrentSequence} setUserInformation={setUserInformation} setInputSequence={setInputSequence} setCount={setCount}/>
-      <ClickButton name="1" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
-      <ClickButton name="2" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
-      <ClickButton name="3" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
-      <ClickButton name="4" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
+      <div className="top">
+        <ClickButton name="one" number="1" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
+        <ClickButton name="two" number="2" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
+      </div>
+      <div className="bottom">
+        <ClickButton name="three" number="3" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
+        <ClickButton name="four" number="4" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
+      </div>
       <div id="currentSequence">Current Sequence: {currentSequence}</div>
       <div id="inputSequence">Input Sequence: {inputSequence}</div>
       <div id="count">Current Count: {count}</div>
       <div id="sequencefield"></div>
       <button onClick={playSequence}>startGame</button>
+      <Switch Name="Strict" strict={strict} setStrict={setStrict}/>
     </div>
   )
 }

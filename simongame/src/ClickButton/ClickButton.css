@@ -1,0 +1,37 @@
+.clickButton {
+  color: blue;
+  height: 20px;
+  width: 40px;
+}
+
+.one {
+  background-color: rgba(255, 0, 0);
+}
+
+.two {
+  background-color: rgba(0, 128, 0);
+}
+
+.three {
+  background-color: rgba(255, 255, 0);
+}
+
+.four {
+  background-color: rgba(0, 0, 255);
+}
+
+.clickButton.one.clicked {
+  background-color: rgba(255, 0, 0, 0.7);
+}
+
+.clickButton.two.clicked {
+  background-color: rgba(0, 128, 0, 0.7);
+}
+
+.clickButton.three.clicked {
+  background-color: rgba(255, 255, 0, 0.3);
+}
+
+.clickButton.four.clicked {
+  background-color: rgba(0, 0, 255, 0.7);
+}
