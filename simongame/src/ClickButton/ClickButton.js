@@ -1,9 +1,12 @@
 import React from 'react'
 
-const ClickButton = () => {
+const ClickButton = (props) => {
+    const clickedButton = () => {
+        props.setCurrentSequence(props.currentSequence + props.name)
+    }
     return (
         <div>
-            <button>Testbutton</button>
+            <button onClick={clickedButton}>{props.name}</button>
         </div>
     )
 }
