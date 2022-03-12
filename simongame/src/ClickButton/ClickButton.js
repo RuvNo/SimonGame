@@ -1,4 +1,5 @@
 import React from 'react'
+import '.././styles/global.css'
 
 const ClickButton = (props) => {
     const clickedButton = () => {
@@ -6,7 +7,7 @@ const ClickButton = (props) => {
     }
     return (
         <div>
-            <button onClick={clickedButton}>{props.name}</button>
+            <button className ="clickButton" id={props.name} onClick={clickedButton}>{props.name}</button>
         </div>
     )
 }
