@@ -3,53 +3,51 @@ import ClickButton from './ClickButton/ClickButton'
 import RestartButton from './RestartButton/RestartButton'
 
 const App = () => {
-
+  // Es wird viel zu viel am Anfang ausgeführt! Muss wahrscheinlich in die UseEffects Bedingungen reinmachen..
+  // Also dass die nur was machen sollen, wenn Count > 1 ist oder so..
+  const [inputSequence, setInputSequence] = useState([])
   const [currentSequence, setCurrentSequence] = useState([])
-  const [rightOrWrong, setRightOrWrong] = useState("right")
   const [userInformation, setUserInformation] = useState("Go Play")
+  const [count, setCount] = useState(1)
 
+  let sequence = "1432314"
 
-  let sequence = [1,4,3,2,3,2,2,2,1,4,3]
-  const getSequence = (max) => {
-    for (let i = 0; i < max; i++) {
-      sequence.push(Math.floor(Math.random() * 4)+1)
-    }
+  if (currentSequence.length === 0) {
+    currentSequence.push(sequence[0])
   }
-  if (sequence.length === 0) {
-    getSequence(20)
-  }
-  
+
   useEffect(() => {
-    for (let i = 0; i < currentSequence.length; i++) {
-      if (parseInt(currentSequence[i]) === sequence[i]) {
-        setRightOrWrong("right!")
-      } else {
-        setRightOrWrong("wrong!")
-        i = currentSequence.length
+    if(inputSequence == parseInt(sequence)) {
+      alert("Congrats - you won!")
+    } else {
+    if(inputSequence == parseInt(currentSequence)) {
+      setInputSequence([])
+      setCount(count + 1)
+      setCurrentSequence(currentSequence + sequence[count])
+    }
+    for (let i = 0; i < inputSequence.length; i++) {
+      if (parseInt(inputSequence[i]) == currentSequence[i]) {
+        } else {
+        setInputSequence([])
+        setCurrentSequence([])
+        setCount(1)
       }
     }
-    if ((currentSequence.length === sequence.length) && rightOrWrong === "right!") {
-      alert("YOU DID IT, CONGRATS!")
-    }
-  },[currentSequence])
+  } 
+  }, [inputSequence])
 
-  useEffect(() => {
-    if(rightOrWrong === "wrong!") {
-      setUserInformation("Sorry, you failed. Start again!")
-    }
-  }, [rightOrWrong])
-  
   return (
     <div>
       <div id="information">{userInformation}</div>
-      <RestartButton currentSequence={currentSequence} setCurrentSequence={setCurrentSequence} setUserInformation={setUserInformation} setRightOrWrong={setRightOrWrong}/>
-      <ClickButton name="1" currentSequence={currentSequence} setCurrentSequence={setCurrentSequence}/>
-      <ClickButton name="2" currentSequence={currentSequence} setCurrentSequence={setCurrentSequence}/>
-      <ClickButton name="3" currentSequence={currentSequence} setCurrentSequence={setCurrentSequence}/>
-      <ClickButton name="4" currentSequence={currentSequence} setCurrentSequence={setCurrentSequence}/>
-      <div id="sequence">{sequence}</div>
-      <div id="currentSequence">{currentSequence}</div>
-      <div id="rightOrWrong">{rightOrWrong}</div>
+      <RestartButton currentSequence={currentSequence} setCurrentSequence={setCurrentSequence} setUserInformation={setUserInformation} />
+      <ClickButton name="1" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
+      <ClickButton name="2" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
+      <ClickButton name="3" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
+      <ClickButton name="4" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
+      <div id="sequence">Goal Sequence: {sequence}</div>
+      <div id="currentSequence">Current Sequence: {currentSequence}</div>
+      <div id="inputSequence">Input Sequence: {inputSequence}</div>
+      <div id="count">Current Count: {count}</div>
     </div>
   )
 }
