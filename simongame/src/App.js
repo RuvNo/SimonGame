@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import ClickButton from './ClickButton/ClickButton'
+import RestartButton from './RestartButton/RestartButton'
 
 const App = () => {
 
   const [currentSequence, setCurrentSequence] = useState([])
   const [rightOrWrong, setRightOrWrong] = useState("right")
+  const [userInformation, setUserInformation] = useState("Go Play")
+
+
   let sequence = [1,4,3,2,3,2,2,2,1,4,3]
   const getSequence = (max) => {
     for (let i = 0; i < max; i++) {
@@ -24,11 +28,21 @@ const App = () => {
         i = currentSequence.length
       }
     }
+    if ((currentSequence.length === sequence.length) && rightOrWrong === "right!") {
+      alert("YOU DID IT, CONGRATS!")
+    }
   },[currentSequence])
+
+  useEffect(() => {
+    if(rightOrWrong === "wrong!") {
+      setUserInformation("Sorry, you failed. Start again!")
+    }
+  }, [rightOrWrong])
   
   return (
     <div>
-      Hallo
+      <div id="information">{userInformation}</div>
+      <RestartButton currentSequence={currentSequence} setCurrentSequence={setCurrentSequence} setUserInformation={setUserInformation} setRightOrWrong={setRightOrWrong}/>
       <ClickButton name="1" currentSequence={currentSequence} setCurrentSequence={setCurrentSequence}/>
       <ClickButton name="2" currentSequence={currentSequence} setCurrentSequence={setCurrentSequence}/>
       <ClickButton name="3" currentSequence={currentSequence} setCurrentSequence={setCurrentSequence}/>
