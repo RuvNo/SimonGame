@@ -7,10 +7,13 @@ const ClickButton = (props) => {
         props.setInputSequence(props.inputSequence + props.number)
         document.getElementById("information").textContent = "Go Play"
     }
-    let className = "clickButton " + props.name 
+    let className = "pushable " + props.name 
+    let className2 = "front " + props.name
     return (
-        <div>
-            <button className ={className} id={props.name} onClick={clickedButton}></button>
+        <div className="buttons">
+            <button className ={className} onClick={clickedButton}>
+                <span class={className2} id={props.name}></span>
+            </button>
         </div>
     )
 }

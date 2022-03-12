@@ -1,1 +1,23 @@
+html {
+  font-family: "Outfit", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  background: url("../assets/colorful-background.jpg") no-repeat center
+    center/cover;
+}
 
+h1 {
+  font-size: 30px;
+  color: turquoise;
+}
+
+.colorButtons {
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  width: 50%;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: rgba(150, 150, 150, 0.5);
+}

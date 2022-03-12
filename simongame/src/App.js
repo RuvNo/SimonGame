@@ -42,12 +42,12 @@ const App = () => {
   }
   
   function pressButton() {
-    document.getElementById(numbers[goalSequence[userTurn]]).classList.add("clicked")
+    document.getElementById(numbers[goalSequence[userTurn]]).classList.add("fakeClick")
     setTimeout(depressButton, 500) 
   }
 
   function depressButton() {
-    document.getElementById(numbers[goalSequence[userTurn]]).classList.remove("clicked")
+    document.getElementById(numbers[goalSequence[userTurn]]).classList.remove("fakeClick")
     setTimeout(function() { // This setup lets me implement a small timeout to make the game feel more natural
       if (userTurn < currentSequence.length - 1) {
         setUserTurn(userTurn + 1)
@@ -99,21 +99,25 @@ const App = () => {
 
   return (
     <div>
+      <h1>Simon</h1>
       <div id="information">{userInformation}</div>
+      <div className="colorButtons">
+        <div className="top">
+          <ClickButton name="one" number="1" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
+          <ClickButton name="two" number="2" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
+        </div>
+        <div className="bottom">
+          <ClickButton name="three" number="3" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
+          <ClickButton name="four" number="4" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
+        </div>
+      </div>
       <RestartButton currentSequence={currentSequence} setCurrentSequence={setCurrentSequence} setUserInformation={setUserInformation} setInputSequence={setInputSequence} setCount={setCount}/>
-      <div className="top">
-        <ClickButton name="one" number="1" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
-        <ClickButton name="two" number="2" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
-      </div>
-      <div className="bottom">
-        <ClickButton name="three" number="3" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
-        <ClickButton name="four" number="4" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
-      </div>
+      <button onClick={playSequence}>startGame</button>
+      
       <div id="currentSequence">Current Sequence: {currentSequence}</div>
       <div id="inputSequence">Input Sequence: {inputSequence}</div>
       <div id="count">Current Count: {count}</div>
       <div id="sequencefield"></div>
-      <button onClick={playSequence}>startGame</button>
       <Switch Name="Strict" strict={strict} setStrict={setStrict}/>
     </div>
   )
