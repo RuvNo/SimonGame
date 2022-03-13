@@ -6,8 +6,9 @@ html {
 }
 
 h1 {
-  font-size: 30px;
-  color: turquoise;
+  font-size: 90px;
+  color: white;
+  text-align: center;
 }
 
 .colorButtons {

@@ -25,6 +25,13 @@ const App = () => {
   if(goalSequence === "") {
     setGoalSequence(String(sequence))
   }
+
+  function restartGame() {
+    setCurrentSequence("");
+    setInputSequence("");
+    setUserTurn(0)
+    setContinuousCount(continuousCount + 1)
+  }
   
   function getRandomInt(max) {
     return Math.floor(Math.random() * max) + 1;
@@ -37,12 +44,27 @@ const App = () => {
   }, [continuousCount])
 
   function playSequence() {
-    setUserTurn(0)
-    setContinuousCount(continuousCount + 1)
+    
+    if (document.getElementById("startRestartButton").textContent === "Restart") {
+      setUserInformation("Restarted. Go Play");
+      setCount(1)
+      setTimeout(restartGame,1000)
+    } else {
+      setUserTurn(0)
+      setContinuousCount(continuousCount + 1)
+    }
+    document.getElementById("startRestartButton").textContent = "Restart"
+  }
+
+  function playSound() {
+    let mp3s = ["https://s3.amazonaws.com/freecodecamp/simonSound1.mp3", "https://s3.amazonaws.com/freecodecamp/simonSound2.mp3", "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3", "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"]
+    var tune = new Audio(mp3s[goalSequence[userTurn]-1])
+    tune.play()
   }
   
   function pressButton() {
     document.getElementById(numbers[goalSequence[userTurn]]).classList.add("fakeClick")
+    playSound()
     setTimeout(depressButton, 500) 
   }
 
@@ -72,7 +94,7 @@ const App = () => {
         setCurrentSequence(currentSequence + goalSequence[count])
         setUserTurn(0)
         setContinuousCount(continuousCount + 1)
-      },500)
+      },2000)
       
     }
     for (let i = 0; i < inputSequence.length; i++) {
@@ -106,18 +128,15 @@ const App = () => {
           <ClickButton name="one" number="1" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
           <ClickButton name="two" number="2" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
         </div>
+        <div className="mid">
+          <button id="startRestartButton" onClick={playSequence}>startGame</button>
+          <div id="count">Current Count: {count}</div>
+        </div>
         <div className="bottom">
           <ClickButton name="three" number="3" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
           <ClickButton name="four" number="4" inputSequence={inputSequence} setInputSequence={setInputSequence} setCount={setCount} count={count}/>
         </div>
       </div>
-      <RestartButton currentSequence={currentSequence} setCurrentSequence={setCurrentSequence} setUserInformation={setUserInformation} setInputSequence={setInputSequence} setCount={setCount}/>
-      <button onClick={playSequence}>startGame</button>
-      
-      <div id="currentSequence">Current Sequence: {currentSequence}</div>
-      <div id="inputSequence">Input Sequence: {inputSequence}</div>
-      <div id="count">Current Count: {count}</div>
-      <div id="sequencefield"></div>
       <Switch Name="Strict" strict={strict} setStrict={setStrict}/>
     </div>
   )
