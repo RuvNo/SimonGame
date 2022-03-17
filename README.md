@@ -2,15 +2,9 @@
 Simple Simon Game. Build using JS-UI-Framework React (based on Create-React-App).
 
 ## Directions
-- Press the "startGame" Button to start a round.
-- Listen/Watch what the sequence is. Afterwards, repeat it.
-- The length of the sequence increments by 1 each time you repeat it correctly. 
-- The Game is won if you repeated a sequence of len 20 correctly.
+- Use the settings to the left to decide whether you want to be "x" or "o" and wether "x" or "o" should start the game.
+- Furthermore, you can choose whether you want to play against the Easy or Hard Computer Opponent. Be careful: You cannot win vs the Hard Computer! ;)
+- After you are happy with your settings, press Start Game.
+- Whenever it is your turn, choose an unoccupied space from the board.
 
-## Settings
-- While playing, you can toggle the "Strict" mode.
-- Normally, you can just restart at the current count if you commit a mistake.
-- However, in "Strict" mode, you have to start over if you fail.
-
-## Instructions
-- You can clone the game and use npm run start to get going.
+Good luck! ;)
