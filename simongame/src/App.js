@@ -5,8 +5,6 @@ import './styles/global.css'
 import Switch from './Switch/Switch'
 
 const App = () => {
-  // Es wird viel zu viel am Anfang ausgeführt! Muss wahrscheinlich in die UseEffects Bedingungen reinmachen..
-  // Also dass die nur was machen sollen, wenn Count > 1 ist oder so..
   const [inputSequence, setInputSequence] = useState("")
   const [currentSequence, setCurrentSequence] = useState("")
   const [userInformation, setUserInformation] = useState("Go Play")
